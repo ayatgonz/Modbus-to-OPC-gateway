@@ -23,4 +23,4 @@ Step 2: Follow the networks config and customization steps as requiered in the M
 Step 1: Download the Modbus_Server scripts 'modbus_driver.py', 'sensehat_driver.py' and 'opcua_gateway.py' in the Edge Computing (Raspberry Pi).
 Step 2: Follow the networks config and customization steps as requiered in the Modbus_Client-to-OPC-UA readme.md file
 
-****NOTE: the sense hat hardware is requeried, if do not use a sensehat you can remove the 'sensehat_driver.py', and 
+****NOTE: the sense hat hardware is requeried, if do not use a sensehat you can remove the 'sensehat_driver.py', and perform the steps in the Modbus_Client-to-OPC-UA readme.md file
