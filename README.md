@@ -27,3 +27,7 @@ Step 1: Download the Modbus_Server scripts 'modbus_driver.py', 'sensehat_driver.
 Step 2: Follow the networks config and customization steps as requiered in the Modbus_Client-to-OPC-UA readme.md file
 
 ****NOTE: the sense hat hardware is requeried, if do not use a sensehat you can remove the 'sensehat_driver.py', and perform the steps in the Modbus_Client-to-OPC-UA readme.md file
+
+
+
+<img width="1617" height="1009" alt="image" src="https://github.com/user-attachments/assets/86092662-a423-491a-bfe7-e4d27df294c9" />
