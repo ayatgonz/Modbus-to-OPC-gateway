@@ -1,61 +1,26 @@
 # Modbus-to-OPC-gateway
 Python-based IIoT gateway Modbus to OPC UA with Raspberry Pi
 
--- Function  --
+A IIoT Edge Gateway project that uses a Raspberry Pi to bridge legacy Modbus TCP data and local sensors into a unified OPC UA stream for SCADA Systems.
 
-It serve data via modbus register.
-It also listen for remote setpoints from the Gateway.
+An Ubuntu host acts as a Modbus Server, collecting system metrics from OS using psutil lib and provide a modbus server for this OS data. A Raspberry Pi Gateway polls this data via modbus, aggregates it with local Sense HAT environmental readings, and exposes the unified information model via an OPC UA Server for real-time SCADA monitoring and bidirectional setpoint control.
 
--- Dependencies --
+This project is divided in two projects:
+1.Modbus_Server: This branch acts as the data producer or "Virtual PLC." It runs an asynchronous Modbus TCP server that collects real-time system metrics (CPU, RAM) to simulate industrial sensor outputs.
+Documentation: Includes a README_Server.md with instructions on how to modify the collector script to broadcast any custom data (APIs, databases, or files) instead of system metrics.
 
-1. Python 3.7+
-2. asyncua==1.1.0
-3. pymodbus==3.6.9
-3. sense-hat (Optional if sensehat hardware is be used)
+2. Modbus_Client-to-OPC-UA (Raspberry Pi): This branch functions as the protocol bridge. It acts as a Modbus Client to poll the server, aggregates that data with local Sense HAT sensor readings, and publishes the unified dataset via a secure OPC UA Server for SCADA control.
+Documentation: Includes a README.md with instructions on how to configure network IPs and map any custom Modbus registers to new OPC UA tags.
 
---Script Configuration-- 
+-- INSTRUCTIONS --
 
----------- MODBUS CLIENT ---------------
-By default, the script reads 10 registers starting at 0. Can be adapted to any number of register arragement.
+----Modbus Server----
 
-Step 1: Open 'modbus_driver.py'.
+Step 1: Download the Modbus_Server scripts 'system_sensor.py' and 'modbus_app' in the Modbus server PC.
+Step 2: Follow the networks config and customization steps as requiered in the Modbus_Server readme.md file
 
-Step 2: Locate the 'get_system_metrics()' function.
+----Modbus_Client-to-OPC-UA----
+Step 1: Download the Modbus_Server scripts 'modbus_driver.py', 'sensehat_driver.py' and 'opcua_gateway.py' in the Edge Computing (Raspberry Pi).
+Step 2: Follow the networks config and customization steps as requiered in the Modbus_Client-to-OPC-UA readme.md file
 
-Step 3: Modify the reading parameter 'rr = client.read_holding_registers(address=0, count=10, slave=1)' to match your Modbus Server modbus map
-   - 'address': The start address from 0 up to 65535.
-   - 'count':   How many consecutive registers to read (Max ~120 per call due to network package limitation).
-   - 'slave':   The Unit ID of the device (usually 1, sometimes 0 or 255). (Used for Modbus RTU, ID=1 for TCP/IP)
-
-Step 4: Modify the write logic if needed in 'write_setpoint()'.
-
----------- OPC UA GATEWAY ---------------
-To add a new variable (Tag) that Ignition can see, you must edit 'opcua_gateway.py'.
-
-Step 5: Add or remove local dependancies.
-
-Step 6: Look for the section marked: "# ================= FOLDER 1 ..."
-
-Step 7: Customize your OPC UA server, removing, editing or adding variables using the following Syntax:
-        var_name = await folder_obj.add_variable(idx, "Displayed_Name", INITIAL_VALUE)
-        ****NOTE: Currently the script use 'ubuntu_folder = await server.nodes.objects.add_object(idx, "Ubuntu_System")'. it can be edited to customize your own object.
-	          You can remove, edit or add currents server.nodes.objects.add_object
-
-Step 8: Look for the section marked: "# TASK A ..."
-
-Step 9: link your new tag to a Modbus Register index using the following Syntax:
-        await tag_name.write_value(mb_data[REGISTER_INDEX])
-
-If you want to WRITE data to the Pi, follow these steps:
-
-Step 10: Define tag inside 'async def main'. Create the variable and EXPLICITLY make it writable with the following Syntax:
-  var_name = await folder_obj.add_variable(idx, "Displayed_Name", INITIAL_VALUE)
-   ENSURING MAKE IT Wrtable --> await var_name.set_writable()
-
-Step 11: Subscribe tags Inside 'async def main'
-   await sub.subscribe_data_change(var_name)
-
- Run 'opcua_gateway.py'are in the same directory and just 'modbus_driver.py'. The script 'modbus_driver.py' is inside the dependancies of 
-      'opcua_gateway.py'. 'modbus_driverpy' not required to be executed.
-
-  
+****NOTE: the sense hat hardware is requeried, if do not use a sensehat you can remove the 'sensehat_driver.py', and perform the steps in the Modbus_Client-to-OPC-UA readme.md file
