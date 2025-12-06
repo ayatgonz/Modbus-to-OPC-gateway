@@ -9,9 +9,9 @@ This project is divided in two projects:
 
 1.Modbus_Server: This branch acts as the data producer or "Virtual PLC." It runs an asynchronous Modbus TCP server that collects real-time system metrics (CPU, RAM) to simulate industrial sensor outputs.
 
-Documentation: Includes a README_Server.md with instructions on how to modify the collector script to broadcast any custom data (APIs, databases, or files) instead of system metrics.
+Documentation: Includes a README_Server.md with instructions on how to modify the collector script to provide any custom data instead of system metrics.
 
-2. Modbus_Client-to-OPC-UA (Raspberry Pi): This branch functions as the protocol bridge. It acts as a Modbus Client to poll the server, aggregates that data with local Sense HAT sensor readings, and publishes the unified dataset via a secure OPC UA Server for SCADA control.
+2. Modbus_Client-to-OPC-UA (Raspberry Pi): This branch functions as the protocol bridge. It acts as a Modbus Client to poll the server, aggregates that data with local Sense HAT sensor readings, and publishes the unified dataset via a OPC UA Server for any SCADA or OPC Explorer.
 
    
 Documentation: Includes a README.md with instructions on how to configure network IPs and map any custom Modbus registers to new OPC UA tags.
