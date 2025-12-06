@@ -28,6 +28,6 @@ Step 2: Follow the networks config and customization steps as requiered in the M
 
 ****NOTE: the sense hat hardware is requeried, if do not use a sensehat you can remove the 'sensehat_driver.py', and perform the steps in the Modbus_Client-to-OPC-UA readme.md file
 
-
+OPC structure imported in a Ignition SCADA, OPC makes data compatible to with almost all modern SCADA System
 
 <img width="1617" height="1009" alt="image" src="https://github.com/user-attachments/assets/86092662-a423-491a-bfe7-e4d27df294c9" />
