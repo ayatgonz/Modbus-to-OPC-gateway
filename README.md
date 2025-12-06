@@ -55,4 +55,7 @@ Step 10: Define tag inside 'async def main'. Create the variable and EXPLICITLY 
 Step 11: Subscribe tags Inside 'async def main'
    await sub.subscribe_data_change(var_name)
 
+ Run 'opcua_gateway.py'are in the same directory and just 'modbus_driver.py'. The script 'modbus_driver.py' is inside the dependancies of 
+      'opcua_gateway.py'. 'modbus_driverpy' not required to be executed.
+
   
