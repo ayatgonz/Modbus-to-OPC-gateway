@@ -20,6 +20,7 @@ Step 1: Download the Modbus_Server scripts 'system_sensor.py' and 'modbus_app' i
 Step 2: Follow the networks config and customization steps as requiered in the Modbus_Server readme.md file
 
 ----Modbus_Client-to-OPC-UA----
+
 Step 1: Download the Modbus_Server scripts 'modbus_driver.py', 'sensehat_driver.py' and 'opcua_gateway.py' in the Edge Computing (Raspberry Pi).
 Step 2: Follow the networks config and customization steps as requiered in the Modbus_Client-to-OPC-UA readme.md file
 
